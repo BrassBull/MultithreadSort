@@ -2,22 +2,22 @@
 #include <thread>
 #include <ctime>
 using namespace std;
-void combine_array(double* arr, int first, int mid_val, int end) //����������� �����������
+void combine_array(double* arr, int first, int mid_val, int end) //объединение двух подмассивов в один упорядоченный (выделяем срезы по трем индексам)
 {
-    double* start = new double[mid_val - first + 1];
-    double* last = new double[end - mid_val];
     int temp_1 = mid_val - first + 1;
     int temp_2 = end - mid_val;
+    double* start = new double[temp_1];
+    double* last = new double[temp_2];
     int i, j;
     int k = first;
-    for (i = 0; i < temp_1; i++) {
+    for (i = 0; i < temp_1; i++) { //делаем срез первого подмассива
         start[i] = arr[i + first];
     }
-    for (i = 0; i < temp_2; i++) {
+    for (i = 0; i < temp_2; i++) { //срез второго подмассива
         last[i] = arr[i + mid_val + 1];
     }
     i = j = 0;
-    while (i < temp_1 && j < temp_2) {
+    while (i < temp_1 && j < temp_2) { //объединяем пока в одном из массивов не кончатся элементы
         if (start[i] <= last[j]) {
             arr[k++] = start[i++];
         }
@@ -25,7 +25,7 @@ void combine_array(double* arr, int first, int mid_val, int end) //����������� �
             arr[k++] = last[j++];
         }
     }
-    while (i < temp_1) {
+    while (i < temp_1) { //добавляем в конец оставшиеся элементы
         arr[k++] = start[i++];
     }
     while (j < temp_2) {
@@ -34,26 +34,26 @@ void combine_array(double* arr, int first, int mid_val, int end) //����������� �
     delete[] start;
     delete[] last;
 }
-void quicksort(double* mas, int first, int last) //�������� ������� ���������� � ���������
+void quicksort(double* arr, int first, int last) //алгоритм быстрой сортировки
 {
     double mid, count;
     int f = first, l = last;
-    mid = mas[(f + l) / 2]; //���������� �������� ��������
+    mid = arr[(f + l) / 2]; //вычисление опорного элемента
     do
     {
-        while (mas[f] < mid) f++;
-        while (mas[l] > mid) l--;
-        if (f <= l) //������������ ���������
+        while (arr[f] < mid) f++;
+        while (arr[l] > mid) l--;
+        if (f <= l) //перестановка элементов
         {
-            count = mas[f];
-            mas[f] = mas[l];
-            mas[l] = count;
+            count = arr[f];
+            arr[f] = arr[l];
+            arr[l] = count;
             f++;
             l--;
         }
     } while (f < l);
-    if (first < l) quicksort(mas, first, l);
-    if (f < last) quicksort(mas, f, last);
+    if (first < l) quicksort(arr, first, l);
+    if (f < last) quicksort(arr, f, last);
 }
 
 int main() 
@@ -70,7 +70,7 @@ int main()
     std::thread thr1(quicksort, arr, 0, (size / 2 - 1) / 2);
     std::thread thr2(quicksort, arr, ((size / 2 - 1) / 2) + 1, size / 2 - 1);
     std::thread thr3(quicksort, arr, size / 2, size / 2 + (size - 1 - size / 2) / 2);
-    std::thread thr4(quicksort, arr, (size / 2 + (size - 1 - size / 2) / 2) + 1, size - 1);
+    std::thread thr4(quicksort, arr, (size / 2 + (size - 1 - size / 2) / 2) + 1, size - 1); 
     thr1.join();
     thr2.join();
     thr3.join();

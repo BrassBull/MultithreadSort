@@ -59,7 +59,7 @@ void quicksort(double* arr, int first, int last) //алгоритм быстро
 int main() 
 {
     int size;
-    cout << "Array size: "; cin >> size;
+    cout << "Array size: "; cin >> size; //создаем массив случайных неотрицательных чисел с плавающей запятой
     double *arr = new double[size];
     double *barr = new double[size];
     for (int i = 0; i < size; i++) {
@@ -67,7 +67,7 @@ int main()
         barr[i] = arr[i];
     }
     clock_t t = clock();
-    std::thread thr1(quicksort, arr, 0, (size / 2 - 1) / 2);
+    std::thread thr1(quicksort, arr, 0, (size / 2 - 1) / 2); //создаем потоки, в каждом из которых сортируем свою область массива
     std::thread thr2(quicksort, arr, ((size / 2 - 1) / 2) + 1, size / 2 - 1);
     std::thread thr3(quicksort, arr, size / 2, size / 2 + (size - 1 - size / 2) / 2);
     std::thread thr4(quicksort, arr, (size / 2 + (size - 1 - size / 2) / 2) + 1, size - 1); 
@@ -75,7 +75,7 @@ int main()
     thr2.join();
     thr3.join();
     thr4.join();
-    combine_array(arr, 0, (size / 2 - 1) / 2, size / 2 - 1);
+    combine_array(arr, 0, (size / 2 - 1) / 2, size / 2 - 1); //попарно объединяем подмассивы в упорядоченный массив
     combine_array(arr, size / 2, size / 2 + (size - 1 - size / 2) / 2, size - 1);
     combine_array(arr, 0, (size - 1) / 2, size - 1);
     t = clock() - t;

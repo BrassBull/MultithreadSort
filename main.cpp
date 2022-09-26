@@ -2,18 +2,18 @@
 #include <thread>
 #include <ctime>
 using namespace std;
-void combine_array(double* arr, int first, int mid_val, int end) //объединение двух подмассивов в один упорядоченный (выделяем срезы по трем индексам)
+void combine_array(float* arr, int first, int mid_val, int end) //объединение двух подмассивов в один упорядоченный (выделяем срезы по трем индексам)
 {
     int temp_1 = mid_val - first + 1;
     int temp_2 = end - mid_val;
-    double* start = new double[temp_1];
-    double* last = new double[temp_2];
+    float* start = new float[temp_1];
+    float* last = new float[temp_2];
     int i, j;
     int k = first;
     for (i = 0; i < temp_1; i++) { //делаем первый срез
         start[i] = arr[i + first];
     }
-    for (i = 0; i < temp_2; i++) { //делаем второй срез
+    for (i = 0; i < temp_2; i++) { //срез второго подмассива
         last[i] = arr[i + mid_val + 1];
     }
     i = j = 0;
@@ -34,9 +34,9 @@ void combine_array(double* arr, int first, int mid_val, int end) //объеди�
     delete[] start;
     delete[] last;
 }
-void quicksort(double* arr, int first, int last) //алгоритм быстрой сортировки
+void quicksort(float* arr, int first, int last) //алгоритм быстрой сортировки
 {
-    double mid, count;
+    float mid, count;
     int f = first, l = last;
     mid = arr[(f + l) / 2]; //вычисление опорного элемента
     do
@@ -56,26 +56,26 @@ void quicksort(double* arr, int first, int last) //алгоритм быстро
     if (f < last) quicksort(arr, f, last);
 }
 
-int main() 
+int main()
 {
     int size;
-    cout << "Array size: "; cin >> size; //создаем массив случайных неотрицательных чисел с плавающей запятой
-    double *arr = new double[size];
-    double *barr = new double[size];
+    cout << "Array size: "; cin >> size;
+    float* arr = new float[size];
+    float* barr = new float[size];
     for (int i = 0; i < size; i++) {
-        arr[i] = rand() * 0.01;
+        arr[i] = float(rand() * 0.1);
         barr[i] = arr[i];
     }
     clock_t t = clock();
-    std::thread thr1(quicksort, arr, 0, (size / 2 - 1) / 2); //создаем потоки, в каждом из которых сортируем свою область массива
+    std::thread thr1(quicksort, arr, 0, (size / 2 - 1) / 2);
     std::thread thr2(quicksort, arr, ((size / 2 - 1) / 2) + 1, size / 2 - 1);
     std::thread thr3(quicksort, arr, size / 2, size / 2 + (size - 1 - size / 2) / 2);
-    std::thread thr4(quicksort, arr, (size / 2 + (size - 1 - size / 2) / 2) + 1, size - 1); 
+    std::thread thr4(quicksort, arr, (size / 2 + (size - 1 - size / 2) / 2) + 1, size - 1);
     thr1.join();
     thr2.join();
     thr3.join();
     thr4.join();
-    combine_array(arr, 0, (size / 2 - 1) / 2, size / 2 - 1); //попарно объединяем подмассивы в упорядоченный массив
+    combine_array(arr, 0, (size / 2 - 1) / 2, size / 2 - 1);
     combine_array(arr, size / 2, size / 2 + (size - 1 - size / 2) / 2, size - 1);
     combine_array(arr, 0, (size - 1) / 2, size - 1);
     t = clock() - t;

@@ -10,10 +10,10 @@ void combine_array(double* arr, int first, int mid_val, int end) //объеди�
     double* last = new double[temp_2];
     int i, j;
     int k = first;
-    for (i = 0; i < temp_1; i++) { //делаем срез первого подмассива
+    for (i = 0; i < temp_1; i++) { //делаем первый срез
         start[i] = arr[i + first];
     }
-    for (i = 0; i < temp_2; i++) { //срез второго подмассива
+    for (i = 0; i < temp_2; i++) { //делаем второй срез
         last[i] = arr[i + mid_val + 1];
     }
     i = j = 0;

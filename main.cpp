@@ -13,7 +13,7 @@ void combine_array(float* arr, int first, int mid_val, int end) //объедин
     for (i = 0; i < temp_1; i++) { //делаем первый срез
         start[i] = arr[i + first];
     }
-    for (i = 0; i < temp_2; i++) { //срез второго подмассива
+    for (i = 0; i < temp_2; i++) { //делаем второй срез
         last[i] = arr[i + mid_val + 1];
     }
     i = j = 0;
@@ -79,12 +79,12 @@ int main()
     combine_array(arr, size / 2, size / 2 + (size - 1 - size / 2) / 2, size - 1);
     combine_array(arr, 0, (size - 1) / 2, size - 1);
     t = clock() - t;
-    cout << "Quick Sort with Multi-threading: ";
+    std::cout << "Quick Sort with Multi-threading: ";
     std::cout << "\n Time -> " << (float)t / CLOCKS_PER_SEC << std::endl;
     t = clock();
     quicksort(barr, 0, size - 1);
     t = clock() - t;
-    cout << "Quick Sort without Multi-threading: ";
+    std::cout << "Quick Sort without Multi-threading: ";
     std::cout << "\n Time -> " << (float)t / CLOCKS_PER_SEC << std::endl;
     delete[] arr;
     delete[] barr;

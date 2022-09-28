@@ -77,7 +77,7 @@ int main()
     thr4.join();
     combine_array(arr, 0, (size / 2 - 1) / 2, size / 2 - 1);
     combine_array(arr, size / 2, size / 2 + (size - 1 - size / 2) / 2, size - 1);
-    combine_array(arr, 0, (size - 1) / 2, size - 1);
+    combine_array(arr, 0, size / 2 - 1, size - 1);
     t = clock() - t;
     std::cout << "Quick Sort with Multi-threading: ";
     std::cout << "\n Time -> " << (float)t / CLOCKS_PER_SEC << std::endl;

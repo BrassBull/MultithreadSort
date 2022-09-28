@@ -1,0 +1,3 @@
+C:/Users/Rus/source/repos/ProjectС/ProjectС/build/CMakeFiles/MultithreadSorting.dir
+C:/Users/Rus/source/repos/ProjectС/ProjectС/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Rus/source/repos/ProjectС/ProjectС/build/CMakeFiles/ZERO_CHECK.dir
